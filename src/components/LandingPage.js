@@ -1,6 +1,7 @@
 import React from "react";
 import Lottie from "react-lottie";
 import {makeStyles, useTheme} from "@material-ui/core/styles";
+import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import ButtonArrow from "./ui/ButtonArrow";
@@ -124,7 +125,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function LandingPage() {
+export default function LandingPage(props) {
     const classes = useStyles();
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -147,10 +148,10 @@ export default function LandingPage() {
                         <Typography variant="h2" align="center">Lorem ipsum dolor sit amet.<br/>Lorem ipsum dolor.</Typography>
                         <Grid container justify="center" className={classes.buttonContainer}>
                             <Grid item>
-                                <Button className={classes.estimateButton} variant="contained">Free Estimate</Button>
+                                <Button component={Link} to="/estimate" className={classes.estimateButton} variant="contained" onClick={() => props.setValue(5)}>Free Estimate</Button>
                             </Grid>
                             <Grid item>
-                                <Button variant="outlined" className={classes.learnButtonHero}>
+                                <Button component={Link} to="/revolution" variant="outlined" className={classes.learnButtonHero} onClick={() => props.setValue(2)}>
                                     <span style={{marginRight: 10}}>Learn More</span>
                                     <ButtonArrow width={15} height={15} fill={theme.palette.common.blue} />
                                 </Button>
@@ -175,7 +176,7 @@ export default function LandingPage() {
                         <Typography variant="subtitle1">
                             Lorem ipsum dolor sit amet, consectetur <span className={classes.specialText}>adipisicing</span>
                         </Typography>
-                        <Button variant="outlined" className={classes.learnButton}>
+                        <Button component={Link} to="/customsoftware" variant="outlined" className={classes.learnButton} onClick={() => {props.setValue(1); props.setSelectedIndex(1)}}>
                             <span style={{marginRight: 10}}>Learn More</span>
                             <ButtonArrow width={10} height={10} fill={theme.palette.common.blue} />
                         </Button>
@@ -198,7 +199,7 @@ export default function LandingPage() {
                         <Typography variant="subtitle1">
                             Lorem ipsum dolor sit amet, consectetur{matchesSM ? null : <br />}Lorem ipsum dolor.
                         </Typography>
-                        <Button variant="outlined" className={classes.learnButton}>
+                        <Button component={Link} to="/mobileapps" variant="outlined" className={classes.learnButton} onClick={() => {props.setValue(1); props.setSelectedIndex(2)}}>
                             <span style={{marginRight: 10}}>Learn More</span>
                             <ButtonArrow width={10} height={10} fill={theme.palette.common.blue} />
                         </Button>
@@ -221,7 +222,7 @@ export default function LandingPage() {
                         <Typography variant="subtitle1">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                         </Typography>
-                        <Button variant="outlined" className={classes.learnButton}>
+                        <Button component={Link} to="/websites" variant="outlined" className={classes.learnButton} onClick={() => {props.setValue(1); props.setSelectedIndex(3)}}>
                             <span style={{marginRight: 10}}>Learn More</span>
                             <ButtonArrow width={10} height={10} fill={theme.palette.common.blue} />
                         </Button>
@@ -245,7 +246,7 @@ export default function LandingPage() {
                                     <Typography variant="subtitle1">
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus est id maxime non, quisquam tenetur?
                                     </Typography>
-                                    <Button variant="outlined" className={classes.learnButtonHero}>
+                                    <Button component={Link} to="/revolution" variant="outlined" className={classes.learnButtonHero} onClick={() => props.setValue(2)}>
                                         <span style={{marginRight: 10}}>Learn More</span>
                                         <ButtonArrow width={15} height={15} fill={theme.palette.common.blue} />
                                     </Button>
@@ -258,16 +259,16 @@ export default function LandingPage() {
             </Grid>
 
             <Grid item>{/*-----Information Block-----*/}
-                <Grid container style={{height: "80em"}} alignItems="center" direction="row">
-                    <Grid item container style={{position: "absolute", textAlign: matchesXS ? "center" : "inherit"}}
-                          direction={matchesXS ? "column" : "row"} spacing={matchesXS ? 10 : 0}>
+                <Grid container style={{height: "80em"}} alignItems="center" direction="row" className={classes.infoBackground}>
+                    <Grid item container style={{textAlign: matchesXS ? "center" : "inherit"}}
+                          direction={matchesXS ? "column" : "row"}>
 
                         <Grid item sm style={{marginLeft: matchesXS ? 0 : matchesSM ? "2em" : "5em"}}>
-                            <Grid container direction="column">
+                            <Grid container style={{marginBottom: matchesXS ? "10em" : 0}} direction="column">
                                 <Typography variant="h2" style={{color: "white"}}>About Us</Typography>
                                 <Typography variant="subtitle2">Lorem ipsum dolor sit.</Typography>
                                 <Grid item>
-                                    <Button variant="outlined" style={{color: "white", borderColor: "white"}} className={classes.learnButton}>
+                                    <Button component={Link} to="/about" variant="outlined" style={{color: "white", borderColor: "white"}} className={classes.learnButton} onClick={() => props.setValue(3)}>
                                         <span style={{marginRight: 10}}>Learn More</span>
                                         <ButtonArrow width={10} height={10} fill="white" />
                                     </Button>
@@ -280,7 +281,7 @@ export default function LandingPage() {
                                 <Typography variant="h2" style={{color: "white"}}>Contact Us</Typography>
                                 <Typography variant="subtitle2">Lorem ipsum dolor sit.</Typography>
                                 <Grid item>
-                                    <Button variant="outlined" style={{color: "white", borderColor: "white"}} className={classes.learnButton}>
+                                    <Button component={Link} to="/contact" variant="outlined" style={{color: "white", borderColor: "white"}} className={classes.learnButton} onClick={() => props.setValue(4)}>
                                         <span style={{marginRight: 10}}>Learn More</span>
                                         <ButtonArrow width={10} height={10} fill="white" />
                                     </Button>
@@ -289,12 +290,11 @@ export default function LandingPage() {
                         </Grid>
 
                     </Grid>
-                    <div className={classes.infoBackground} />
                 </Grid>
             </Grid>
 
             <Grid item>{/*-----Call To Action Block-----*/}
-                <CallToAction />
+                <CallToAction setValue={props.setValue} />
             </Grid>
 
         </Grid>
